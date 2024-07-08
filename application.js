@@ -1,6 +1,7 @@
 // board object/module
 const BoardGame = (function() {
   const boardArray = [...Array(3)].map(e => Array(3));
+  const pieces = ['X', 'O']
   const playerOne = new Player();
   const playerTwo = new Player();
   const players = [playerOne, playerTwo]; 
