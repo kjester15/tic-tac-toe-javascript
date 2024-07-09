@@ -46,7 +46,11 @@ const GamePlay = (function() {
 
 // display the board in the terminal, then later in the browser
 const DisplayController = (function () {
+  const displayBoard = () => {
+    console.log(BoardGame.boardArray.toString())
+  };
 
+  return { displayBoard };
 })();
 
 
@@ -60,6 +64,5 @@ while (true) {
   let move = GamePlay.processMove(prompt("move where? ABC123"));
   GamePlay.movePiece(move);
   GamePlay.updatePlayer();
+  DisplayController.displayBoard();
 }
-
-// console.log(GamePlay.makeUppercase("hello"))
