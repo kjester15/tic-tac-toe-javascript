@@ -5,28 +5,48 @@ const BoardGame = (function() {
   const playerOne = new Player();
   const playerTwo = new Player();
   const players = [playerOne, playerTwo]; 
+
+  return { boardArray, pieces, players};
 })();
 
 // gameplay object/module
 const GamePlay = (function() {
-  let playerTurn = 1;
+  let playerTurn = 0;
+
   const createPlayer = (name, symbol) => {
     const player = new Player(name, symbol);
     return player;
   };
+
   const updatePlayer = () => {
-    console.log(`start ${playerTurn}`)
     if (playerTurn == 0) {
       playerTurn++;
     } else {
       playerTurn--;
     };
-    console.log(`finish ${playerTurn}`)
   };
+
+  // for now use grid of 012-012 - will change once implemented in browser
+  const processMove = (input) => {
+    const move = [input.at(0), input.at(1)]
+    return move;
+  };
+
+  const movePiece = (move) => {
+    BoardGame.boardArray[move[0]][move[1]] = BoardGame.pieces[playerTurn];
+  };
+
   return {
     createPlayer,
     updatePlayer,
+    processMove,
+    movePiece,
   }
+})();
+
+// display the board in the terminal, then later in the browser
+const DisplayController = (function () {
+
 })();
 
 
@@ -36,5 +56,10 @@ function Player(name, symbol) {
   this.symbol = symbol;
 };
 
-GamePlay.updatePlayer()
+while (true) {
+  let move = GamePlay.processMove(prompt("move where? ABC123"));
+  GamePlay.movePiece(move);
+  GamePlay.updatePlayer();
+}
+
 // console.log(GamePlay.makeUppercase("hello"))
