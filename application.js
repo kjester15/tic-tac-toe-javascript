@@ -2,11 +2,11 @@
 const BoardGame = (function() {
   const boardArray = [...Array(3)].map(e => Array(3));
   const pieces = ['X', 'O']
-  const playerOne = GamePlay.createPlayer(1);
-  const playerTwo = GamePlay.createPlayer(2);
-  const players = [playerOne, playerTwo]; 
+  let playerOne;
+  let playerTwo;
+  const players = []; 
 
-  return { boardArray, pieces, players};
+  return { boardArray, pieces, playerOne, playerTwo, players};
 })();
 
 // gameplay object/module
@@ -39,7 +39,6 @@ const GamePlay = (function() {
 
   const checkHorizontal = () => {
     const playerPiece = BoardGame.pieces[playerTurn];
-    // check for horizontal wins
     for (let i = 0; i < 3; i++) {
       let tokenCount = 0;
       for (let j = 0; j < 3; j++) {
@@ -58,7 +57,6 @@ const GamePlay = (function() {
 
   const checkVertical = () => {
     const playerPiece = BoardGame.pieces[playerTurn];
-    // check for verticle wins
     for (let j = 0; j < 3; j++) {
       let tokenCount = 0;
       for (let i = 0; i < 3; i++) {
@@ -77,7 +75,6 @@ const GamePlay = (function() {
 
   const checkDiagonal = () => {
     const playerPiece = BoardGame.pieces[playerTurn];
-    // check for first diagonal wins
     for (let i = 0; i < 3; i++) {
       let tokenCount = 0;
       if (BoardGame.boardArray[i][i] != playerPiece) {
@@ -90,7 +87,6 @@ const GamePlay = (function() {
         return true;
       }
     };
-    // check for second diagonal wins
     for (let i = 0; i < 3; i++) {
       let tokenCount = 0;
       for (let j = 2; j > -1; j--) {
@@ -128,6 +124,7 @@ const GamePlay = (function() {
     checkVertical,
     checkDiagonal,
     checkWin,
+    playerTurn,
   }
 })();
 
@@ -146,9 +143,12 @@ function Player(name, symbol) {
   this.symbol = symbol;
 };
 
+BoardGame.playerOne = GamePlay.createPlayer(1);
+BoardGame.playerTwo = GamePlay.createPlayer(2);
+BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
 let win = false;
 while (win == false) {
-  let move = GamePlay.processMove(prompt("move where? 1-3, 1-3 (ex. 11)"));
+  let move = GamePlay.processMove(prompt(`${BoardGame.players[GamePlay.playerTurn].name}, move where? 1-3, 1-3 (ex. 11)`));
   GamePlay.movePiece(move);
   win = GamePlay.checkWin();
   GamePlay.updatePlayer();
