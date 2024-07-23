@@ -1,0 +1,30 @@
+body {
+  background-color: rgb(221, 215, 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.board {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+button {
+  background-color: rgb(255, 220, 182);
+  border: none;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin: 3px;
+}
+
+button:hover {
+  background-color: rgb(255, 201, 144);
+}

@@ -149,15 +149,15 @@ function Player(name, symbol) {
   this.symbol = symbol;
 };
 
-BoardGame.playerOne = GamePlay.createPlayer(1);
-BoardGame.playerTwo = GamePlay.createPlayer(2);
-BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
-let win = false;
-while (win == false) {
-  let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
-  GamePlay.movePiece(move);
-  win = GamePlay.checkWin();
-  GamePlay.updatePlayer();
-  DisplayController.displayBoard();
-}
+// BoardGame.playerOne = GamePlay.createPlayer(1);
+// BoardGame.playerTwo = GamePlay.createPlayer(2);
+// BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
+// let win = false;
+// while (win == false) {
+//   let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
+//   GamePlay.movePiece(move);
+//   win = GamePlay.checkWin();
+//   GamePlay.updatePlayer();
+//   DisplayController.displayBoard();
+// }
 console.log("Game over!");
