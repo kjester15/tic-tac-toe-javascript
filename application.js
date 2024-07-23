@@ -19,6 +19,11 @@ const GamePlay = (function() {
     return player;
   };
 
+  const returnPlayer = () => {
+    let player = BoardGame.players[playerTurn].name;
+    return player;
+  }
+
   const updatePlayer = () => {
     if (playerTurn == 0) {
       playerTurn++;
@@ -125,6 +130,7 @@ const GamePlay = (function() {
     checkDiagonal,
     checkWin,
     playerTurn,
+    returnPlayer,
   }
 })();
 
@@ -148,7 +154,7 @@ BoardGame.playerTwo = GamePlay.createPlayer(2);
 BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
 let win = false;
 while (win == false) {
-  let move = GamePlay.processMove(prompt(`${BoardGame.players[GamePlay.playerTurn].name}, move where? 1-3, 1-3 (ex. 11)`));
+  let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
   GamePlay.movePiece(move);
   win = GamePlay.checkWin();
   GamePlay.updatePlayer();
