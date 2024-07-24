@@ -13,6 +13,13 @@ const BoardGame = (function() {
 const GamePlay = (function() {
   let playerTurn = 0;
 
+  const setupGame = () => {
+    BoardGame.playerOne = GamePlay.createPlayer(1);
+    BoardGame.playerTwo = GamePlay.createPlayer(2);
+    BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
+    DisplayController.displayBoard(BoardGame.boardArray);
+  };
+
   const createPlayer = (number) => {
     playerName = prompt(`What is player ${number}'s name?`)
     const player = new Player(playerName, BoardGame.pieces[number - 1]);
@@ -22,7 +29,7 @@ const GamePlay = (function() {
   const returnPlayer = () => {
     let player = BoardGame.players[playerTurn].name;
     return player;
-  }
+  };
 
   const updatePlayer = () => {
     if (playerTurn == 0) {
@@ -31,12 +38,6 @@ const GamePlay = (function() {
       playerTurn--;
     }
   };
-
-  // for now use grid of 012-012 - will change once implemented in browser
-  // const processMove = (input) => {
-  //   const move = [input.at(0), input.at(1)]
-  //   return move;
-  // };
 
   const processMove = (element) => {
     let id = element.id.split("");
@@ -137,6 +138,7 @@ const GamePlay = (function() {
   };
 
   return {
+    setupGame,
     createPlayer,
     updatePlayer,
     processMove,
@@ -148,7 +150,7 @@ const GamePlay = (function() {
     playerTurn,
     returnPlayer,
     continueGamePlay,
-  }
+  };
 })();
 
 // display the board in the terminal, then later in the browser
@@ -158,7 +160,6 @@ const DisplayController = (function () {
   };
 
   const displayBoard = (array) => {
-    // console.log(BoardGame.boardArray.toString())
     array.forEach((row, i) => {
       for(var j = 0; j < 3; j++) {
         const newTile = document.createElement("button");
@@ -186,10 +187,8 @@ function Player(name, symbol) {
   this.symbol = symbol;
 };
 
-BoardGame.playerOne = GamePlay.createPlayer(1);
-BoardGame.playerTwo = GamePlay.createPlayer(2);
-BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
-DisplayController.displayBoard(BoardGame.boardArray);
+GamePlay.setupGame();
+
 // let win = false;
 // while (win == false) {
 //   let move = GamePlay.processMove()
