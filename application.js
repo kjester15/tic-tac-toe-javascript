@@ -14,6 +14,9 @@ const GamePlay = (function() {
   let playerTurn = 0;
 
   const setupGame = () => {
+    DisplayController.clearBoard()
+    BoardGame.boardArray = [...Array(3)].map(e => Array(3));
+    GamePlay.playerTurn = 0;
     BoardGame.playerOne = GamePlay.createPlayer(1);
     BoardGame.playerTwo = GamePlay.createPlayer(2);
     BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
@@ -208,4 +211,7 @@ function Player(name, symbol) {
   this.symbol = symbol;
 };
 
-GamePlay.setupGame();
+let newGame = document.getElementById("new");
+newGame.addEventListener("click", function() {
+  GamePlay.setupGame();
+});

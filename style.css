@@ -17,11 +17,6 @@ header {
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
 }
-/* 
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-} */
 
 #new {
   background-color: rgb(255, 220, 182);
@@ -41,6 +36,6 @@ button {
   margin: 3px;
 }
 
-button:hover {
+#new:hover, button:hover {
   background-color: rgb(255, 201, 144);
 }
