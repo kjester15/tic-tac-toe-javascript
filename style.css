@@ -1,26 +1,42 @@
 body {
   background-color: rgb(221, 215, 250);
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr 4fr;
   align-items: center;
   justify-content: center;
   height: 100vh;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+}
+
 .board {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
-
+/* 
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+} */
+
+#new {
+  background-color: rgb(255, 220, 182);
+  border: none;
+  width: 120px;
+  height: 80px;
+  border-radius: 10px;
+  margin: 3px;
 }
 
 button {
   background-color: rgb(255, 220, 182);
   border: none;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border-radius: 10px;
   margin: 3px;
 }

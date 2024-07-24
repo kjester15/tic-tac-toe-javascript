@@ -33,10 +33,34 @@ const GamePlay = (function() {
   };
 
   // for now use grid of 012-012 - will change once implemented in browser
-  const processMove = (input) => {
-    const move = [input.at(0), input.at(1)]
+  // const processMove = (input) => {
+  //   const move = [input.at(0), input.at(1)]
+  //   return move;
+  // };
+
+  const processMove = (element) => {
+    console.log('hi')
+    let row;
+    if (element.id < 3) {
+      row = 0;
+    } else if (element.id > 2 && element.id < 6) {
+      row = 1;
+    } else {
+      row = 2;
+    }
+
+    let column;
+    if (element.id == 0 || element.id == 3 || element.id == 6) {
+      column = 0;
+    } else if (element.id == 1 || element.id == 4 || element.id == 7) {
+      colum = 1;
+    } else {
+      column = 2;
+    }
+
+    const move = [row, column]
     return move;
-  };
+  }
 
   const movePiece = (move) => {
     BoardGame.boardArray[move[0]][move[1]] = BoardGame.pieces[playerTurn];
@@ -136,8 +160,25 @@ const GamePlay = (function() {
 
 // display the board in the terminal, then later in the browser
 const DisplayController = (function () {
-  const displayBoard = () => {
-    console.log(BoardGame.boardArray.toString())
+  const displayBoard = (array) => {
+    // console.log(BoardGame.boardArray.toString())
+    console.log(array)
+    array.forEach((row, i) => {
+      for(var j = 0; j < 3; j++) {
+        const newTile = document.createElement("button");
+        if (BoardGame.boardArray[i][j] == null) {
+          newTile.innerHTML = `${i}${j}`;
+        } else {
+          newTile.innerHTML = BoardGame.boardArray[i][j];
+        }
+        newTile.setAttribute("id", `tile-${i}${j}`);
+        document.getElementById("board").appendChild(newTile);
+        // add event listener to button
+        newTile.addEventListener("click", (event) => {
+          processMove(event.target);
+        });
+      };
+    });
   };
 
   return { displayBoard };
@@ -149,15 +190,16 @@ function Player(name, symbol) {
   this.symbol = symbol;
 };
 
-// BoardGame.playerOne = GamePlay.createPlayer(1);
-// BoardGame.playerTwo = GamePlay.createPlayer(2);
-// BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
-// let win = false;
-// while (win == false) {
-//   let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
-//   GamePlay.movePiece(move);
-//   win = GamePlay.checkWin();
-//   GamePlay.updatePlayer();
-//   DisplayController.displayBoard();
-// }
+BoardGame.playerOne = GamePlay.createPlayer(1);
+BoardGame.playerTwo = GamePlay.createPlayer(2);
+BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
+let win = false;
+while (win == false) {
+  // let move = GamePlay.processMove()
+  // let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
+  GamePlay.movePiece(move);
+  win = GamePlay.checkWin();
+  GamePlay.updatePlayer();
+  DisplayController.displayBoard(BoardGame.boardArray);
+}
 console.log("Game over!");
