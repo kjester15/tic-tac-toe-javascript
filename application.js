@@ -39,28 +39,12 @@ const GamePlay = (function() {
   // };
 
   const processMove = (element) => {
-    console.log('hi')
-    let row;
-    if (element.id < 3) {
-      row = 0;
-    } else if (element.id > 2 && element.id < 6) {
-      row = 1;
-    } else {
-      row = 2;
-    }
-
-    let column;
-    if (element.id == 0 || element.id == 3 || element.id == 6) {
-      column = 0;
-    } else if (element.id == 1 || element.id == 4 || element.id == 7) {
-      colum = 1;
-    } else {
-      column = 2;
-    }
-
+    let id = element.id.split("");
+    let column = id.pop();
+    let row = id.pop();
     const move = [row, column]
-    return move;
-  }
+    return continueGamePlay(move);
+  };
 
   const movePiece = (move) => {
     BoardGame.boardArray[move[0]][move[1]] = BoardGame.pieces[playerTurn];
@@ -144,6 +128,14 @@ const GamePlay = (function() {
     }
   };
 
+  const continueGamePlay = (move) => {
+    GamePlay.movePiece(move);
+    // let win = GamePlay.checkWin();
+    GamePlay.updatePlayer();
+    DisplayController.clearBoard()
+    DisplayController.displayBoard(BoardGame.boardArray);
+  };
+
   return {
     createPlayer,
     updatePlayer,
@@ -155,14 +147,18 @@ const GamePlay = (function() {
     checkWin,
     playerTurn,
     returnPlayer,
+    continueGamePlay,
   }
 })();
 
 // display the board in the terminal, then later in the browser
 const DisplayController = (function () {
+  const clearBoard = ()=> {
+    document.getElementById("board").innerHTML = "";
+  };
+
   const displayBoard = (array) => {
     // console.log(BoardGame.boardArray.toString())
-    console.log(array)
     array.forEach((row, i) => {
       for(var j = 0; j < 3; j++) {
         const newTile = document.createElement("button");
@@ -175,13 +171,13 @@ const DisplayController = (function () {
         document.getElementById("board").appendChild(newTile);
         // add event listener to button
         newTile.addEventListener("click", (event) => {
-          processMove(event.target);
+          GamePlay.processMove(event.target);
         });
       };
     });
   };
 
-  return { displayBoard };
+  return { clearBoard, displayBoard };
 })();
 
 // player object
@@ -193,13 +189,14 @@ function Player(name, symbol) {
 BoardGame.playerOne = GamePlay.createPlayer(1);
 BoardGame.playerTwo = GamePlay.createPlayer(2);
 BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
-let win = false;
-while (win == false) {
-  // let move = GamePlay.processMove()
+DisplayController.displayBoard(BoardGame.boardArray);
+// let win = false;
+// while (win == false) {
+//   let move = GamePlay.processMove()
   // let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
-  GamePlay.movePiece(move);
-  win = GamePlay.checkWin();
-  GamePlay.updatePlayer();
-  DisplayController.displayBoard(BoardGame.boardArray);
-}
-console.log("Game over!");
+//   GamePlay.movePiece(move);
+//   win = GamePlay.checkWin();
+//   GamePlay.updatePlayer();
+//   DisplayController.displayBoard(BoardGame.boardArray);
+// }
+// console.log("Game over!");
