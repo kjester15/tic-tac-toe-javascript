@@ -44,11 +44,17 @@ const GamePlay = (function() {
     let column = id.pop();
     let row = id.pop();
     const move = [row, column]
+    if (BoardGame.boardArray[move[0]][move[1]] != null) {
+      return;
+    };
     return continueGamePlay(move);
   };
 
   const movePiece = (move) => {
-    BoardGame.boardArray[move[0]][move[1]] = BoardGame.pieces[playerTurn];
+    if (BoardGame.boardArray[move[0]][move[1]] == null) {
+      BoardGame.boardArray[move[0]][move[1]] = BoardGame.pieces[playerTurn];
+      valid = true;
+    };
   };
 
   const checkHorizontal = () => {
