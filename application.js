@@ -164,7 +164,7 @@ const DisplayController = (function () {
       for(var j = 0; j < 3; j++) {
         const newTile = document.createElement("button");
         if (BoardGame.boardArray[i][j] == null) {
-          newTile.innerHTML = `${i}${j}`;
+          newTile.innerHTML = "";
         } else {
           newTile.innerHTML = BoardGame.boardArray[i][j];
         }
