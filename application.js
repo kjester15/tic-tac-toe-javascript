@@ -46,7 +46,7 @@ const GamePlay = (function() {
     const move = [row, column]
     if (BoardGame.boardArray[move[0]][move[1]] != null) {
       return;
-    };
+    }
     return continueGamePlay(move);
   };
 
@@ -54,7 +54,7 @@ const GamePlay = (function() {
     if (BoardGame.boardArray[move[0]][move[1]] == null) {
       BoardGame.boardArray[move[0]][move[1]] = BoardGame.pieces[playerTurn];
       valid = true;
-    };
+    }
   };
 
   const checkHorizontal = () => {
@@ -125,26 +125,35 @@ const GamePlay = (function() {
 
   const checkWin = () => {
     if (checkHorizontal() == true) {
-      console.log('winner')
       return true;
     } else if (checkVertical() == true) {
-      console.log('winner')
       return true;
     } else if (checkDiagonal() == true) {
-      console.log('winner')
       return true;
     } else {
       return false;
     }
   };
 
+  const endGame = () => {
+    let tiles = document.getElementsByClassName("tile");
+    console.log(tiles);
+    Array.from(tiles).forEach((element) => {
+      console.log(element)
+      element.disabled = true;
+    });
+  };
+
   const continueGamePlay = (move) => {
     GamePlay.movePiece(move);
-    GamePlay.checkWin();
-    GamePlay.updatePlayer();
+    let win = GamePlay.checkWin();
     DisplayController.clearBoard()
     DisplayController.displayBoard(BoardGame.boardArray);
-    console.log(BoardGame.boardArray)
+    if (win == true) {
+      alert(`${BoardGame.players[playerTurn].name} wins!`);
+      GamePlay.endGame();
+    }
+    GamePlay.updatePlayer();
   };
 
   return {
@@ -157,6 +166,7 @@ const GamePlay = (function() {
     checkVertical,
     checkDiagonal,
     checkWin,
+    endGame,
     playerTurn,
     returnPlayer,
     continueGamePlay,
@@ -179,6 +189,7 @@ const DisplayController = (function () {
           newTile.innerHTML = BoardGame.boardArray[i][j];
         }
         newTile.setAttribute("id", `tile-${i}${j}`);
+        newTile.setAttribute("class", "tile");
         document.getElementById("board").appendChild(newTile);
         // add event listener to button
         newTile.addEventListener("click", (event) => {
@@ -198,14 +209,3 @@ function Player(name, symbol) {
 };
 
 GamePlay.setupGame();
-
-// let win = false;
-// while (win == false) {
-//   let move = GamePlay.processMove()
-  // let move = GamePlay.processMove(prompt(`${GamePlay.returnPlayer()}, move where? 1-3, 1-3 (ex. 11)`));
-//   GamePlay.movePiece(move);
-//   win = GamePlay.checkWin();
-//   GamePlay.updatePlayer();
-//   DisplayController.displayBoard(BoardGame.boardArray);
-// }
-// console.log("Game over!");
