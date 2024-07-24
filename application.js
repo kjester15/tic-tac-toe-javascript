@@ -95,8 +95,8 @@ const GamePlay = (function() {
 
   const checkDiagonal = () => {
     const playerPiece = BoardGame.pieces[playerTurn];
+    let tokenCount = 0;
     for (let i = 0; i < 3; i++) {
-      let tokenCount = 0;
       if (BoardGame.boardArray[i][i] != playerPiece) {
         tokenCount = 0;
         break;
@@ -107,28 +107,31 @@ const GamePlay = (function() {
         return true;
       }
     };
-    for (let i = 0; i < 3; i++) {
-      let tokenCount = 0;
-      for (let j = 2; j > -1; j--) {
-        if (BoardGame.boardArray[i][j] != playerPiece) {
-          tokenCount = 0;
-          break;
-        } else {
-          tokenCount++;
-        }
-        if (tokenCount == 3) {
-          return true;
-        }
-      };
+    tokenCount = 0;
+    let j = 0;
+    for (let i = 2; i > -1; i--) {
+      if (BoardGame.boardArray[j][i] != playerPiece) {
+        tokenCount = 0;
+        break;
+      } else {
+        tokenCount++;
+      }
+      if (tokenCount == 3) {
+        return true;
+      }
+      j++;
     };
   };
 
   const checkWin = () => {
     if (checkHorizontal() == true) {
+      console.log('winner')
       return true;
     } else if (checkVertical() == true) {
+      console.log('winner')
       return true;
     } else if (checkDiagonal() == true) {
+      console.log('winner')
       return true;
     } else {
       return false;
@@ -137,10 +140,11 @@ const GamePlay = (function() {
 
   const continueGamePlay = (move) => {
     GamePlay.movePiece(move);
-    // let win = GamePlay.checkWin();
+    GamePlay.checkWin();
     GamePlay.updatePlayer();
     DisplayController.clearBoard()
     DisplayController.displayBoard(BoardGame.boardArray);
+    console.log(BoardGame.boardArray)
   };
 
   return {
