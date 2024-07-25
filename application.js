@@ -1,3 +1,5 @@
+let announcement = document.getElementById("announcement");
+
 // board object/module
 const BoardGame = (function() {
   const boardArray = [...Array(3)].map(e => Array(3));
@@ -21,10 +23,11 @@ const GamePlay = (function() {
     BoardGame.playerTwo = GamePlay.createPlayer(2);
     BoardGame.players = [BoardGame.playerOne, BoardGame.playerTwo];
     DisplayController.displayBoard(BoardGame.boardArray);
+    announcement.innerHTML = `${BoardGame.players[playerTurn].name}, YOUR TURN!`
   };
 
   const createPlayer = (number) => {
-    playerName = prompt(`What is player ${number}'s name?`)
+    playerName = prompt(`What is player ${number}'s name?`).toUpperCase();
     const player = new Player(playerName, BoardGame.pieces[number - 1]);
     return player;
   };
@@ -153,10 +156,11 @@ const GamePlay = (function() {
     DisplayController.clearBoard()
     DisplayController.displayBoard(BoardGame.boardArray);
     if (win == true) {
-      alert(`${BoardGame.players[playerTurn].name} wins!`);
+      // document.querySelector("announcement").innerHTML(`${BoardGame.players[playerTurn].name} wins!`);
       GamePlay.endGame();
     }
     GamePlay.updatePlayer();
+    announcement.innerHTML = `${BoardGame.players[playerTurn].name}, YOUR TURN!`
   };
 
   return {
