@@ -27,7 +27,7 @@ const GamePlay = (function() {
   };
 
   const createPlayer = (number) => {
-    playerName = prompt(`WHAT IS PLAYER ${number}'S NAME?`).toUpperCase();
+    playerName = prompt(`WHAT IS PLAYER ${number}s NAME?`).toUpperCase();
     const player = new Player(playerName, BoardGame.pieces[number - 1]);
     return player;
   };
@@ -146,7 +146,6 @@ const GamePlay = (function() {
     Array.from(tiles).forEach((element) => {
       element.disabled = true;
       console.log(element)
-      // element.setAttribute("class", "win");
     });
     announcement.innerHTML =`${BoardGame.players[playerTurn].name} WINS!`;
   };
@@ -197,7 +196,6 @@ const DisplayController = (function () {
         }
         newTile.setAttribute("id", `tile-${i}${j}`);
         document.getElementById("board").appendChild(newTile);
-        // add event listener to button
         newTile.addEventListener("click", (event) => {
           GamePlay.processMove(event.target);
         });
