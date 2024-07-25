@@ -27,7 +27,7 @@ const GamePlay = (function() {
   };
 
   const createPlayer = (number) => {
-    playerName = prompt(`What is player ${number}'s name?`).toUpperCase();
+    playerName = prompt(`WHAT IS PLAYER ${number}'S NAME?`).toUpperCase();
     const player = new Player(playerName, BoardGame.pieces[number - 1]);
     return player;
   };
@@ -143,11 +143,12 @@ const GamePlay = (function() {
 
   const endGame = () => {
     let tiles = document.getElementsByClassName("tile");
-    console.log(tiles);
     Array.from(tiles).forEach((element) => {
-      console.log(element)
       element.disabled = true;
+      console.log(element)
+      // element.setAttribute("class", "win");
     });
+    announcement.innerHTML =`${BoardGame.players[playerTurn].name} WINS!`;
   };
 
   const continueGamePlay = (move) => {
@@ -156,8 +157,8 @@ const GamePlay = (function() {
     DisplayController.clearBoard()
     DisplayController.displayBoard(BoardGame.boardArray);
     if (win == true) {
-      // document.querySelector("announcement").innerHTML(`${BoardGame.players[playerTurn].name} wins!`);
       GamePlay.endGame();
+      return;
     }
     GamePlay.updatePlayer();
     announcement.innerHTML = `${BoardGame.players[playerTurn].name}, YOUR TURN!`

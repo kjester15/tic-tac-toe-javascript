@@ -50,6 +50,10 @@ h1 {
   margin: 3px;
 }
 
+.win {
+  background-color: rgb(84, 255, 75);
+}
+
 button {
   background-color: rgb(255, 220, 182);
   border: none;
