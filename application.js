@@ -142,7 +142,7 @@ const GamePlay = (function() {
   };
 
   const endGame = () => {
-    let tiles = document.getElementsByClassName("tile");
+    let tiles = document.querySelectorAll('[id^="tile"]');
     Array.from(tiles).forEach((element) => {
       element.disabled = true;
       console.log(element)
@@ -181,7 +181,6 @@ const GamePlay = (function() {
   };
 })();
 
-// display the board in the terminal, then later in the browser
 const DisplayController = (function () {
   const clearBoard = ()=> {
     document.getElementById("board").innerHTML = "";
@@ -191,13 +190,12 @@ const DisplayController = (function () {
     array.forEach((row, i) => {
       for(var j = 0; j < 3; j++) {
         const newTile = document.createElement("button");
-        if (BoardGame.boardArray[i][j] == null) {
-          newTile.innerHTML = "";
-        } else {
-          newTile.innerHTML = BoardGame.boardArray[i][j];
+        if (BoardGame.boardArray[i][j] == 'X') {
+          newTile.setAttribute("class", "playerOne");
+        } else if (BoardGame.boardArray[i][j] == 'O') {
+          newTile.setAttribute("class", "playerTwo");
         }
         newTile.setAttribute("id", `tile-${i}${j}`);
-        newTile.setAttribute("class", "tile");
         document.getElementById("board").appendChild(newTile);
         // add event listener to button
         newTile.addEventListener("click", (event) => {
