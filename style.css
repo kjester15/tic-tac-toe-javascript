@@ -70,3 +70,11 @@ button:hover {
 #new:hover {
   background-color: rgb(201, 255, 125);
 }
+
+.playerOne {
+  background: url("img/hexagon-outline.svg") no-repeat center;
+}
+
+.playerTwo {
+  background: url("img/hexagon-slice-6.svg") no-repeat center;
+}
